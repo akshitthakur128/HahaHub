@@ -56,7 +56,7 @@ const loginController = async(req, res) => {
             return res.status(403).send('Incorrect password');
         }
         
-        const accessToken = generateAccessToken({_id: user._id, email: user.email});
+        const accessToken = generateAccessToken({_id: user._id});
         return res.json({accessToken});
     }catch(error){
         console.log(error);
@@ -66,8 +66,8 @@ const loginController = async(req, res) => {
 
 const generateAccessToken = (data) => { 
     try { 
-    const token = jwt.sign(data, 'asdfasdfawwidofnwroqppqaswiehrb', {
-        expiresIn: '60s'
+    const token = jwt.sign(data, process.env.ACCESS_TOKEN_PRIVATE_KEY, {
+        expiresIn: '15m',
     });
     console.log(token);
     return token;
