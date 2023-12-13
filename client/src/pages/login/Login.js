@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import './Login.scss'
 import { Link } from 'react-router-dom'
-
+import {axiosClient} from '../../utils/axiosClient'
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); 
-  function handleSubmit(){
-    e.preventDefault();
-
-  }
   
+  async function handleSubmit(){
+    e.preventDefault();
+    const result = await axiosClient.post('/auth/login', {
+      email, password
+    })
+    console.log(result)
+  }
+
   return (
     <div className='Login'>
       <div className="login-box">
